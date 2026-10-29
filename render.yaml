@@ -9,10 +9,9 @@ services:
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /
     envVars:
+      # Neon connection string; set it in the dashboard (Environment tab), never in git
       - key: DATABASE_URL
-        fromDatabase:
-          name: evently-db
-          property: connectionString
+        sync: false
       - key: SECRET_KEY
         generateValue: true
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
@@ -21,6 +20,9 @@ services:
         value: 3.12.7
       - key: CORS_ORIGINS
         value: https://evently.onrender.com
+      # Render added a random suffix to the static site's hostname
+      - key: CORS_ORIGIN_REGEX
+        value: https://evently(-[a-z0-9]+)?\.onrender\.com
 
   - type: web
     name: evently
@@ -28,9 +30,3 @@ services:
     rootDir: frontend
     buildCommand: echo "No build step"
     staticPublishPath: .
-
-databases:
-  - name: evently-db
-    plan: free
-    databaseName: event_booking
-    user: evently
