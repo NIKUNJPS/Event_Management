@@ -1,0 +1,14 @@
+# AWS Amplify Hosting: serves frontend/ as a static site.
+# Set env var API_BASE in Amplify (e.g. https://abc123.lambda-url.ap-south-1.on.aws/api)
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        - sed -i "s#__API_BASE__#${API_BASE}#g" frontend/js/api.js
+  artifacts:
+    baseDirectory: frontend
+    files:
+      - '**/*'
+  cache:
+    paths: []

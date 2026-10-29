@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My Bookings</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+
+      <a class="brand" href="index.html">
+        Evently
+      </a>
+
+      <div class="nav-links">
+        <a href="events.html">
+          Events
+        </a>
+
+        <button class="btn secondary" onclick="logout()">
+          Logout
+        </button>
+      </div>
+
+    </div>
+  </nav>
+
+  <main class="section">
+    <div class="container">
+
+      <h1>My Bookings</h1>
+
+      <div style="overflow:auto">
+
+        <table class="table">
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Event</th>
+              <th>Seats</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="bookings"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/booking.js"></script>
+
+  <script>
+    loadBookings().catch(
+      e =>
+        document.getElementById('bookings').innerHTML =
+          '<tr><td colspan="6">' +
+          e.message +
+          '</td></tr>'
+    );
+  </script>
+
+</body>
+</html>
