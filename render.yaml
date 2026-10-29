@@ -9,8 +9,8 @@ services:
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /
     envVars:
-      # Neon connection string; set it in the dashboard (Environment tab), never in git
-      - key: DATABASE_URL
+      # MongoDB Atlas connection string; set it in the dashboard (Environment tab), never in git
+      - key: MONGODB_URL
         sync: false
       - key: SECRET_KEY
         generateValue: true

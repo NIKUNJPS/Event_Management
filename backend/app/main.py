@@ -2,11 +2,10 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
-from app.database import Base, engine
-from app.models import User, Event, Seat, Booking, BookingSeat
+from app.database import init_db
 from app.routers import auth, events, bookings, admin
 
-Base.metadata.create_all(bind=engine)
+init_db()
 app = FastAPI(title="Event Booking API", version="1.0.0")
 # Comma-separated list, e.g. https://evently.onrender.com; defaults to * for local dev
 origins = [o.strip() for o in os.getenv("CORS_ORIGINS", "*").split(",") if o.strip()]
